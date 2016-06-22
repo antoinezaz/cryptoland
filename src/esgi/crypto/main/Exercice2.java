@@ -1,24 +1,24 @@
 package esgi.crypto.main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import esgi.crypto.classes.Ceasar;
 import esgi.crypto.model.Key;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Exercice2 {
 	public static void main(String[] args) {
-		try {
-			Ceasar m = new Ceasar();
-			File temp = new File("key.txt");
-			File message = new File("message.txt");
-			File result = new File("result.txt");
-			File crypted = new File("crypted.txt");
+		Ceasar m = new Ceasar();
+		File temp = new File("key.txt");
+		File message = new File("message.txt");
+		File result = new File("result.txt");
+		File crypted = new File("crypted.txt");
 
-			Key k = m.generateKey(10);
-			m.writeKey(k, temp);
+		Key k = m.generateKey(10);
+		m.writeKey(k, temp);
+
+		try {
+
 			Key readedkey = m.readKey(temp);
 			System.out.println("readedkey: "+readedkey.toString());
 

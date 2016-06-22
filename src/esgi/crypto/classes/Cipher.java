@@ -1,18 +1,12 @@
 package esgi.crypto.classes;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import esgi.crypto.intefaces.ICipher;
+import esgi.crypto.model.Key;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import esgi.crypto.intefaces.ICipher;
-import esgi.crypto.model.Key;
 
 public class Cipher implements ICipher{
 
@@ -27,7 +21,7 @@ public class Cipher implements ICipher{
 	public void encode(File message, String referLine, String key, File crypted) throws IOException {
 		PrintWriter out;
         out = new PrintWriter(crypted);
-        String newstring = "";
+        String newstring;
 
         FileInputStream fstream;
 
@@ -118,13 +112,14 @@ public class Cipher implements ICipher{
     private void writeOccurence(String s, File fileToRead, File fileToWrite) throws IOException {
             PrintWriter out = new PrintWriter(fileToWrite);
             FileInputStream fstream;
+        BufferedReader br;
+        String strLine;
             for (int i = 0; i < s.length(); i++) {
                 // count char occurrence
                 int count = 0;
                 fstream = new FileInputStream(fileToRead);
-                BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+                br = new BufferedReader(new InputStreamReader(fstream));
 
-                String strLine;
                 while ((strLine = br.readLine()) != null) {
                     for (int j = 0; j < strLine.length(); j++) {
                         if(strLine.charAt(j) == s.charAt(i)){
@@ -179,9 +174,10 @@ public class Cipher implements ICipher{
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
         String strLine;
+        String[] parts;
 
         while ((strLine = br.readLine()) != null) {
-            String[] parts = strLine.split("~");
+            parts = strLine.split("~");
             letters.add(new Letter(parts[0].charAt(0), Integer.parseInt(parts[1])));
         }
         System.out.println("message_count: " + letters.toString());
