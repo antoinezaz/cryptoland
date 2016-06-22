@@ -18,7 +18,16 @@ public class Cipher implements ICipher{
         hacked_key = new Key();
     }
 
-	public void encode(File message, String referLine, String key, File crypted) throws IOException {
+    /**
+     * Method for encoding a message from a file with a key to a file
+     *
+     * @param message
+     * @param referLine
+     * @param key
+     * @param crypted
+     * @throws IOException
+     */
+    public void encode(File message, String referLine, String key, File crypted) throws IOException {
 		PrintWriter out;
         out = new PrintWriter(crypted);
         String newstring;
@@ -45,13 +54,26 @@ public class Cipher implements ICipher{
         }
         out.close();
         //Close the input stream
-	}
+    }
 
-	public void decode(File crypted, String referLine, String key, File message) throws IOException {
+    /**
+     * Method to decode a message from a gile to a file. Use the encode method
+     * @param crypted
+     * @param referLine
+     * @param key
+     * @param message
+     * @throws IOException
+     */
+    public void decode(File crypted, String referLine, String key, File message) throws IOException {
 		encode(crypted, key, referLine, message);
-	}
+    }
 
-	public Key generateKey(int param) {
+    /**
+     * Method to generate a key. take a int as parameter and return the generated key
+     * @param param
+     * @return Key
+     */
+    public Key generateKey(int param) {
 		
 		Key result = new Key();
 		String alpha = result.getLine1();	
@@ -59,9 +81,15 @@ public class Cipher implements ICipher{
 		result.setLine2(newkey);
 		
 		return result;
-	}
+    }
 
-	public Key readKey(File f) throws IOException {
+    /**
+     * Method to read a key from a file
+     * @param f
+     * @return
+     * @throws IOException
+     */
+    public Key readKey(File f) throws IOException {
 		FileInputStream fstream;
 		
 		Key result = new Key();
@@ -77,9 +105,14 @@ public class Cipher implements ICipher{
 
           return result;
         //Close the input stream
-	}
+    }
 
-	public void writeKey(Key key, File f) {
+    /**
+     * Method to write a key from a file
+     * @param key
+     * @param f
+     */
+    public void writeKey(Key key, File f) {
         PrintWriter out = null;
         try {
             out = new PrintWriter(f);
@@ -88,9 +121,15 @@ public class Cipher implements ICipher{
         }
         out.println(key.getLine2());
         out.close();
-	}
-	
-	protected String scramble(int n, String inputString) {
+    }
+
+    /**
+     * Method to generate a shuffled version of the string parameters
+     * @param n
+     * @param inputString
+     * @return
+     */
+    protected String scramble(int n, String inputString) {
         Random random = new Random();
         char a[] = inputString.toCharArray();
 
@@ -103,12 +142,27 @@ public class Cipher implements ICipher{
         }
         return new String(a);
     }
-	
-	public void count(String s, File message, File crypted) throws IOException {
+
+    /**
+     * Method to write the frequency of each letters from message and crypted
+     * @param s
+     * @param message
+     * @param crypted
+     * @throws IOException
+     */
+    public void count(String s, File message, File crypted) throws IOException {
         writeOccurence(s, message, new File("message_count.txt"));
         writeOccurence(s, crypted,new File("crypted_count.txt"));
-	}
+    }
 
+
+    /**
+     * Method to write in a file the number of each letters from the message of a file
+     * @param s
+     * @param fileToRead
+     * @param fileToWrite
+     * @throws IOException
+     */
     private void writeOccurence(String s, File fileToRead, File fileToWrite) throws IOException {
             PrintWriter out = new PrintWriter(fileToWrite);
             FileInputStream fstream;
@@ -132,8 +186,12 @@ public class Cipher implements ICipher{
             out.close();
 
     }
-	
-	public void attack() throws IOException {
+
+    /**
+     * Method to decode a crypted message without key
+     * @throws IOException
+     */
+    public void attack() throws IOException {
 		message_count = new ArrayList<>();
 		crypted_count = new ArrayList<>();
 
@@ -143,8 +201,12 @@ public class Cipher implements ICipher{
 
 		File message_hacked = keyHack();
 		this.decode(new File("crypted.txt"), hacked_key.getLine1(), hacked_key.getLine2(), message_hacked);
-	}
+    }
 
+    /**
+     * Method to hack the key
+     * @return
+     */
     protected File keyHack() {
         String newstring = "";
         int find;
@@ -170,6 +232,12 @@ public class Cipher implements ICipher{
         return new File("message_hacked.txt");
     }
 
+    /**
+     * Method to write the count result from attack
+     * @param fstream
+     * @param letters
+     * @throws IOException
+     */
     private void writeResultCount(FileInputStream fstream, List<Letter> letters) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
