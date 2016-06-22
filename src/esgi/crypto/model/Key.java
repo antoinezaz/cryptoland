@@ -33,4 +33,5 @@ public class Key {
 	public String toString() {
 		return "Key [line1=" + line1 + ", line2=" + line2 + "]";
 	}
+
 }
