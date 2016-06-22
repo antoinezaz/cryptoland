@@ -6,6 +6,9 @@ import esgi.crypto.model.Key;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Main for first exercise using Cipher
+ */
 public class Exercice1 {
 	public static void main(String[] args) {
         Cipher m = new Cipher();

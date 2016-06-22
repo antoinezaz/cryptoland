@@ -6,6 +6,9 @@ import esgi.crypto.model.Key;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Main for exercise 2 using Ceasar
+ */
 public class Exercice2 {
 	public static void main(String[] args) {
 		Ceasar m = new Ceasar();

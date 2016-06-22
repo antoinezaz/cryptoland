@@ -4,7 +4,14 @@ import java.io.File;
 
 
 public class Ceasar extends Cipher {
-	
+
+	/**
+	 * Method to get a shuffled version of alphabet
+	 *
+	 * @param n
+	 * @param inputString
+	 * @return
+	 */
 	@Override
 	protected String scramble(int n, String inputString) {
 		char a[] = inputString.toCharArray();
@@ -18,6 +25,10 @@ public class Ceasar extends Cipher {
 		return String.valueOf(temp);
 	}
 
+	/**
+	 * Method to hack the key
+	 * @return
+	 */
 	@Override
 	protected File keyHack() {
 		char thechar = ' ';
