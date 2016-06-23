@@ -1,7 +1,8 @@
 package esgi.crypto.model;
 
-import java.util.Arrays;
-
+/**
+ * Class representing a key containing an alphabet and it's crypted version
+ */
 public class Key {
 	private String line1 = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}";
 	private String line2 = "";
@@ -35,4 +36,5 @@ public class Key {
 	public String toString() {
 		return "Key [line1=" + line1 + ", line2=" + line2 + "]";
 	}
+
 }

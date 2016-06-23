@@ -2,12 +2,18 @@ package esgi.crypto.classes;
 
 import java.io.File;
 
+
 public class Ceasar extends Cipher {
-	
+
+	/**
+	 * Method to get a shuffled version of alphabet
+	 *
+	 * @param n
+	 * @param inputString
+	 * @return
+	 */
 	@Override
 	protected String scramble(int n, String inputString) {
-		// TODO Auto-generated method stub
-		
 		char a[] = inputString.toCharArray();
 		char temp[] = new char[a.length];
 		System.out.println(a.length);
@@ -16,18 +22,20 @@ public class Ceasar extends Cipher {
             temp[i] = (i + n < a.length)? a[i + n] : a[i + n - a.length];
             System.out.println(String.valueOf(temp));
         }
-        
 		return String.valueOf(temp);
 	}
 
+	/**
+	 * Method to hack the key
+	 * @return
+	 */
 	@Override
 	protected File keyHack() {
 		char thechar = ' ';
 		char thechar_crypted = ' ';
-		int find = 0;
-		char c =' ';
+		int find;
+		char c;
 		for (Letter letter : message_count) {
-
 			find = 0;
 			c =' ';
 			for (Letter crypted_letter : crypted_count) {
