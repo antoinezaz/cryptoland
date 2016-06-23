@@ -7,9 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import esgi.crypto.intefaces.ICipher;
 import esgi.crypto.model.Key;
@@ -141,6 +139,13 @@ public class Cipher implements ICipher{
 	public void attack() throws IOException {
 		message_count = new ArrayList<>();
 		crypted_count = new ArrayList<>();
+
+        message_count.sort(new Comparator<Letter>() {
+            @Override
+            public int compare(Letter o1, Letter o2) {
+                return o1.count < o2.count? 1: 0;
+            }
+        });
 
         writeResultCount(new FileInputStream("message_count.txt"), message_count);
         writeResultCount(new FileInputStream("crypted_count.txt"), crypted_count);

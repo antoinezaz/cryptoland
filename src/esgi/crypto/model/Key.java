@@ -3,7 +3,7 @@ package esgi.crypto.model;
 import java.util.Arrays;
 
 public class Key {
-	private String line1 = " !\"#$%&\'’()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyzéèàùöôûêâäçœîïÉÀ{|}";
+	private String line1 = " !\"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}";
 	private String line2 = "";
 	
 	public Key() {
