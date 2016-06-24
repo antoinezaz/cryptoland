@@ -7,63 +7,38 @@ public class Polyalphabetique extends Cipher {
 
     @Override
     public void encode(File message, String referLine, String key, File crypted) throws IOException {
-        PrintWriter out;
-        out = new PrintWriter(crypted);
-        String newstring;
-
-        FileInputStream fstream;
-
-        fstream = new FileInputStream(message);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
-        String strLine;
+        String newstring = "";
+        String strLine = readFile(message);
         int k = 0;
-        while ((strLine = br.readLine()) != null) {
-            newstring = "";
-            for (int i = 0; i < strLine.length(); i++) {
-                if (k >= key.length()) k =0;
-                char c = key.charAt(k);
-                int dec = referLine.indexOf(c);
-                System.out.println("dec "+ dec);
-                int index = referLine.indexOf(strLine.charAt(i));
-                System.out.println("index "+ index);
-                newstring +=  (dec + index >= referLine.length())? referLine.charAt(index + dec - referLine.length()) : referLine.charAt(index + dec);
-                k++;
-            }
-            out.println(newstring);
+
+        for (int i = 0; i < strLine.length(); i++) {
+            if (k >= key.length()) k =0;
+            char c = key.charAt(k);
+            int dec = referLine.indexOf(c);
+            int index = referLine.indexOf(strLine.charAt(i));
+            newstring +=  (dec + index >= referLine.length())? referLine.charAt(index + dec - referLine.length()) : referLine.charAt(index + dec);
+            k++;
         }
 
-        out.close();
-        //Close the input stream
+        writeFile(newstring, crypted);
     }
 
     @Override
     public void decode(File crypted, String referLine, String key, File message) throws IOException {
-        PrintWriter out;
-        out = new PrintWriter(message);
-        String newstring;
+        String newstring = "";
+        String strLine = readFile(crypted);
 
-        FileInputStream fstream;
-
-        fstream = new FileInputStream(crypted);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
-        String strLine;
         int k = 0;
-        while ((strLine = br.readLine()) != null) {
-            newstring = "";
-            for (int i = 0; i < strLine.length(); i++) {
-                if (k >= key.length()) k =0;
-                char c = key.charAt(k);
-                int dec = referLine.indexOf(c);
-                int index = referLine.indexOf(strLine.charAt(i));
-                newstring +=  (index - dec < 0)? referLine.charAt(index - dec + referLine.length()) : referLine.charAt(index - dec);
-                k++;
-            }
-            out.println(newstring);
+        for (int i = 0; i < strLine.length(); i++) {
+            if (k >= key.length()) k =0;
+            char c = key.charAt(k);
+            int dec = referLine.indexOf(c);
+            int index = referLine.indexOf(strLine.charAt(i));
+            newstring +=  (index - dec < 0)? referLine.charAt(index - dec + referLine.length()) : referLine.charAt(index - dec);
+            k++;
         }
 
-        out.close();
+        writeFile(newstring, message);
     }
 
     @Override
@@ -75,5 +50,14 @@ public class Polyalphabetique extends Cipher {
             a[i] = inputString.charAt(rand);
         }
         return String.valueOf(a);
+    }
+
+    private int nbOccurrences(String src, String search) {
+        int lastIndex = 0, count = 0;
+        while ((lastIndex = src.indexOf(search, lastIndex)) != -1) {
+            count++;
+            lastIndex += search.length();
+        }
+        return count;
     }
 }

@@ -97,21 +97,28 @@ public class Cipher implements ICipher{
      * @throws IOException
      */
     public Key readKey(File f) throws IOException {
-		FileInputStream fstream;
 		
 		Key result = new Key();
-        fstream = new FileInputStream(f);
-        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
-        String strLine;
-
-          strLine = br.readLine();
-          result.setLine2(strLine);
-
-          br.close();
-
+        result.setLine2(readFile(f));
           return result;
-        //Close the input stream
+    }
+
+    /**
+     *
+     * @param f
+     * @return
+     * @throws IOException
+     */
+    protected String readFile(File f) throws IOException {
+        FileInputStream fstream = new FileInputStream(f);
+        String result = "";
+        String strLine;
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        while ((strLine = br.readLine()) != null) {
+            result += strLine;
+        }
+        br.close();
+        return result;
     }
 
     /**
@@ -120,13 +127,17 @@ public class Cipher implements ICipher{
      * @param f
      */
     public void writeKey(Key key, File f) {
+        writeFile(key.getLine2(), f);
+    }
+
+    protected void writeFile(String message, File f) {
         PrintWriter out = null;
         try {
             out = new PrintWriter(f);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        out.println(key.getLine2());
+        out.println(message);
         out.close();
     }
 
@@ -254,7 +265,6 @@ public class Cipher implements ICipher{
      */
     private void writeResultCount(FileInputStream fstream, List<Letter> letters) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
         String strLine;
         String[] parts;
 
